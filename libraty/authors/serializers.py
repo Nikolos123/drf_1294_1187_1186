@@ -19,7 +19,7 @@ class BiographyModelSerializer(HyperlinkedModelSerializer):
 
 class BookModelSerializer(ModelSerializer):
 
-    authors = serializers.StringRelatedField(many=True)
+    # authors = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Book

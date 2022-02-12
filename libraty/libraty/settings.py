@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'authors',
-    'corsheaders'
+    'corsheaders',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'libraty.urls'
+ROOT_URLCONF = 'libraty.urls_example'
 
 TEMPLATES = [
     {
@@ -130,8 +131,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_RENDERER_CLASSES':[
-#         'rest_framework.renderers.JSONRenderer'
-#     ]
-# }
+REST_FRAMEWORK = {
+    # 'DEFAULT_RENDERER_CLASSES':[
+    #     'rest_framework.renderers.JSONRenderer'
+    # ]
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+   'PAGE_SIZE': 1
+}

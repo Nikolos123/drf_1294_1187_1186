@@ -19,9 +19,9 @@ from rest_framework.routers import DefaultRouter,SimpleRouter
 
 from authors.views import AuthorModelViewSet,BookModelViewSet,BiographyModelViewSet
 
-router = SimpleRouter()
+router = DefaultRouter()
 router.register('authors',AuthorModelViewSet)
-router.register('book',BookModelViewSet)
+router.register('books',BookModelViewSet)
 router.register('biography',BiographyModelViewSet)
 # router.registry('books',AuthorModelViewSet)
 

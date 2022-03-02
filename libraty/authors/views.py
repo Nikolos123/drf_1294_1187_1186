@@ -16,7 +16,7 @@ class AuthorModelViewSet(ModelViewSet):
     renderer_classes = [JSONRenderer,BrowsableAPIRenderer]
     queryset = Author.objects.all()
     serializer_class = AuthorModelSerializer
-    permission_classes = [IsAdminUser]
+    # permission_classes = [IsAdminUser]
 
 
 class BiographyModelViewSet(ModelViewSet):

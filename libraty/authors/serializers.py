@@ -11,7 +11,7 @@ class AuthorModelSerializer(ModelSerializer):
         # fields = ('first_name',)
         # exclude = ('first_name',)
 
-class BiographyModelSerializer(HyperlinkedModelSerializer):
+class BiographyModelSerializer(ModelSerializer):
     # author = AuthorModelSerializer()
     class Meta:
         model = Biography

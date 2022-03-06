@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'rest_framework.authtoken',
+    'user',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -149,10 +151,17 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
 
+
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+
+    # 'DEFAULT_VERSIONING_CLASS':'rest_framework.versioning.URLPathVersioning',
+    # 'DEFAULT_VERSIONING_CLASS':'rest_framework.versioning.NamespaceVersioning',
+    # 'DEFAULT_VERSIONING_CLASS':'rest_framework.versioning.QueryParameterVersioning',
+    'DEFAULT_VERSIONING_CLASS':'rest_framework.versioning.AcceptHeaderVersioning',
 
 }
+#http://v1.test.ru

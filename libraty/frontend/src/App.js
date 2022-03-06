@@ -78,7 +78,8 @@ class App extends React.Component {
         console.log('test')
         let headers = {
 
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            // 'Accept': 'application/json; version=v'
         }
         console.log(this.is_aut())
         if(this.is_aut()){

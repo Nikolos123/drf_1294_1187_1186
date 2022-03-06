@@ -15,6 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
 from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.routers import DefaultRouter,SimpleRouter
 
@@ -24,6 +27,26 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView
 )
+
+from user.views import UserListAPIView
+
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title='Library',
+        default_version='v2',
+        description='Project',
+        contact=openapi.Contact(email='test@mail.ru'),
+        license=openapi.License(name='ST License')
+    ),
+    public=True,
+    permission_classes=(permissions.IsAdminUser,)
+
+)
+
+
+
+
 router = DefaultRouter()
 router.register('authors',AuthorModelViewSet)
 router.register('books',BookModelViewSet)
@@ -39,4 +62,13 @@ urlpatterns = [
     path('api-token-auth/',obtain_auth_token),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # path('swagger/',schema_view.with_ui('swagger')),
+    # path('swagger<str:format>',schema_view.without_ui()),
+    path('swagger/',schema_view.with_ui('swagger')),
+    path('redoc/',schema_view.with_ui('redoc')),
+    # path('api/<str:version>/user/',UserListAPIView.as_view()),
+    # path('api/user/v1/',include('user.urls',namespace='v1')),
+    # path('api/user/v2/',include('user.urls',namespace='v2')),
+
 ]

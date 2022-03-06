@@ -4,7 +4,9 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from .models import Author, Book,Biography
-from .serializers import AuthorModelSerializer,BiographyModelSerializer,BookModelSerializer
+from .serializers import AuthorModelSerializer, BiographyModelSerializer, BookModelSerializer, \
+    AuthorBasedModelSerializer
+
 
 class StaffOnly(BasePermission):
     def has_permission(self, request, view):
@@ -13,10 +15,12 @@ class StaffOnly(BasePermission):
 # Create your models here.
 # @renderer_classes([JSONRenderer])
 class AuthorModelViewSet(ModelViewSet):
-    renderer_classes = [JSONRenderer,BrowsableAPIRenderer]
     queryset = Author.objects.all()
-    serializer_class = AuthorModelSerializer
-    # permission_classes = [IsAdminUser]
+
+    def get_serializer_class(self):
+        if self.request.version == 'v2':
+            return AuthorBasedModelSerializer
+        return AuthorModelSerializer
 
 
 class BiographyModelViewSet(ModelViewSet):

@@ -45,13 +45,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
+    #my
     'authors',
+    'user',
+
+    #other
     'corsheaders',
     'django_filters',
     'rest_framework.authtoken',
-    'user',
-    'drf_yasg'
+    'rest_framework',
+    'drf_yasg',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -165,3 +169,7 @@ REST_FRAMEWORK = {
 
 }
 #http://v1.test.ru
+
+GRAPHENE = {
+    "SCHEMA": "libraty.schema.schema"
+}

@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from graphene_django.views import GraphQLView
@@ -71,7 +72,7 @@ urlpatterns = [
     # path('api/<str:version>/user/',UserListAPIView.as_view()),
     # path('api/user/v1/',include('user.urls',namespace='v1')),
     # path('api/user/v2/',include('user.urls',namespace='v2')),
-
+    path('', TemplateView.as_view(template_name='index.html')),
     path('graphql/',GraphQLView.as_view(graphiql=True)),
 
 ]

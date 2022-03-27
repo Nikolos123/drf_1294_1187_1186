@@ -6,9 +6,11 @@ import AuthorList from "./components/Author.js";
 import BookList from "./components/Book.js";
 import NotFound404 from "./components/NotFound404.js";
 import BookListAuthors from "./components/BooksAuthor.js";
+import BookForm from "./components/BookForm";
 import LoginForm from "./components/Auth.js";
 import Cookies from "universal-cookie";
 import {HashRouter, Route, BrowserRouter, Link, Switch, Redirect} from "react-router-dom";
+
 
 
 class App extends React.Component {
@@ -20,6 +22,40 @@ class App extends React.Component {
             'token': '',
         };
     }
+
+    createBook(name,author){
+
+        const headers = this.get_headers()
+        const data = {name:name,authors:author}
+        axios.post('http://127.0.0.1:8001/api/books/',data,{headers}).then(
+
+            response => {
+
+                this.load_data()
+            }
+        ).catch(error => {
+            console.log(error)
+            this.setState({books:[]})
+        })
+
+    }
+
+    deleteBook(id){
+        const headers = this.get_headers()
+        axios.delete(`http://127.0.0.1:8001/api/books/${id}`,{headers}).then(
+
+            response =>{
+                this.load_data()
+
+            }
+        ).catch(error => {
+            console.log(error)
+            this.setState({books: []})
+        })
+    }
+
+
+
     logout(){
         this.set_token('')
     }
@@ -81,9 +117,9 @@ class App extends React.Component {
             'Content-Type':'application/json',
             // 'Accept': 'application/json; version=v'
         }
-        console.log(this.is_aut())
+        // console.log(this.is_aut())
         if(this.is_aut()){
-            console.log(`Token ${this.state.token}`)
+            // console.log(`Token ${this.state.token}`)
             headers['Authorization'] = `Token ${this.state.token}`
         }
 
@@ -116,7 +152,12 @@ class App extends React.Component {
                     </nav>
                     <Switch>
                         <Route exact path='/' component={() => <AuthorList authors={this.state.authors}/>}/>
-                        <Route exact path='/books' component={() => <BookList books={this.state.books}/>}/>
+                        <Route exact path='/books' component={() => <BookList books={this.state.books}
+                                                                              deleteBook={(id)=> this.deleteBook(id)}/>}/>
+
+                        <Route exact path='/books/create' component={() => <BookForm authors={this.state.authors}
+                                                                              createBook={(name,author)=> this.createBook(name,author)}/>}/>
+
 
                         <Route path='/author/:id'>
 

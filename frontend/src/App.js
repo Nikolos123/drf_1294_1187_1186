@@ -27,7 +27,7 @@ class App extends React.Component {
 
         const headers = this.get_headers()
         const data = {name:name,authors:author}
-        axios.post('http://127.0.0.1:8001/api/books/',data,{headers}).then(
+        axios.post('http://127.0.0.1:8000/api/books/',data,{headers}).then(
 
             response => {
 
@@ -42,7 +42,7 @@ class App extends React.Component {
 
     deleteBook(id){
         const headers = this.get_headers()
-        axios.delete(`http://127.0.0.1:8001/api/books/${id}`,{headers}).then(
+        axios.delete(`http://127.0.0.1:8000/api/books/${id}`,{headers}).then(
 
             response =>{
                 this.load_data()
@@ -61,7 +61,7 @@ class App extends React.Component {
     }
     load_data() {
         const headers = this.get_headers()
-        axios.get('http://127.0.0.1:8001/api/authors/', {headers}).then(response => {
+        axios.get('http://127.0.0.1:8000/api/authors/', {headers}).then(response => {
             this.setState({
                 'authors': response.data
             })
@@ -70,7 +70,7 @@ class App extends React.Component {
             this.setState({'authors': []})
         })
 
-        axios.get('http://127.0.0.1:8001/api/books/', {headers}).then(response => {
+        axios.get('http://127.0.0.1:8000/api/books/', {headers}).then(response => {
             this.setState({
                 'books': response.data
             })
@@ -101,7 +101,7 @@ class App extends React.Component {
     }
 
     get_token(username, password) {
-        axios.post('http://127.0.0.1:8001/api-token-auth/', {
+        axios.post('http://127.0.0.1:8000/api-token-auth/', {
             username: username,
             password: password
         }).then(response => {

@@ -1,0 +1,36 @@
+version: '3.1'
+
+
+services:
+  db:
+    image: postgres:13.1
+    privileged: true
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: nikolay
+      POSTGRES_PASSWORD: 1
+      POSTGRES_DB: db
+  backend:
+    build: ./libraty
+    privileged: true
+    ports:
+      - 8081:8081
+    command:
+      bash -c "python manage.py migrate &&
+      python manage.py create_author &&
+      gunicorn libraty.wsgi -b 0.0.0.0:8081"
+    depends_on:
+      - db
+  nginx:
+    build: ./nginx
+    ports:
+      - 8000:80
+    depends_on:
+      - backend
+  frontend:
+    build: ./frontend
+    ports:
+      - 80:80
+    depends_on:
+      - nginx
